@@ -1,0 +1,31 @@
+<launch>
+    <set_parameter name="use_sim_time" value="true" />
+
+    <node pkg="norlab_icp_mapper_ros" exec="mapper_node" name="mapper_node" output="screen">
+        <remap from="points_in" to="rslidar_points_deskewed"/>
+        <param name="robot_frame" value="base_link"/>
+        <param name="odom_frame" value="odom"/>
+        <param name="icp_config" value="$(find-pkg-share sphere_mapping)/params/offline_icp_config.yaml"/>
+        <param name="input_filters_config" value="$(find-pkg-share sphere_mapping)/params/offline_input_filters.yaml"/>
+        <param name="map_post_filters_config" value="$(find-pkg-share sphere_mapping)/params/offline_post_filters.yaml"/>
+        <param name="map_update_condition" value="delay"/>
+        <param name="sensor_max_range" value="100.0"/>
+        <param name="min_dist_new_point" value="0.15"/>
+        <param name="compute_prob_dynamic" value="true"/>
+        <param name="map_tf_publish_rate" value="100.0"/>
+        <param name="is_online" value="true"/>
+    </node>
+
+    <node pkg="imu_odom" exec="imu_odom_node" name="imu_odom_node" output="screen">
+        <remap from="imu_topic" to="/MTI_imu/data"/>
+        <param name="odom_frame" value="odom"/>
+        <param name="robot_frame" value="base_link"/>
+        <param name="imu_frame" value="imu_link"/>
+        <param name="real_time" value="true"/>
+    </node>
+
+   <node  pkg="pointcloud_motion_deskew" exec="pointcloud2_deskew_node" name="pointcloud2_deskew_node" output="screen" >
+        <remap from="input_point_cloud" to="/rslidar_points" />
+        <remap from="output_point_cloud" to="/rslidar_points_deskewed" />
+    </node>
+</launch>
