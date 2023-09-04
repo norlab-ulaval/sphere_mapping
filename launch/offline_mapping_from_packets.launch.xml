@@ -30,7 +30,7 @@
 		<remap from="imu_topic" to="/MTI30_imu/data_oriented"/>
 		<param name="odom_frame" value="odom"/>
 		<param name="robot_frame" value="base_link"/>
-		<param name="imu_frame" value="xsens"/>
+		<param name="imu_frame" value="mti30"/>
 	</node>
 
 	<node pkg="pointcloud_motion_deskew" exec="pointcloud2_deskew_node" name="pointcloud2_deskew_node">
