@@ -1,2 +1,2 @@
 - SurfaceNormalDataPointsFilter:
-    knn: 15
+    knn: 30

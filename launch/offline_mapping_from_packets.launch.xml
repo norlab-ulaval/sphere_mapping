@@ -1,5 +1,5 @@
 <launch>
-	<arg name="imu" default="MTI30"/>
+	<arg name="imu" default="vectornav"/>
 
 	<let name="is_mti" value="$(eval '\'$(var imu)\' == \'MTI30\'')"/>
 	<let name="imu_frame" value="mti30" if="$(var is_mti)"/>
@@ -7,8 +7,10 @@
 	
 	<set_parameter name="use_sim_time" value="true"/>
 
-  <include file="$(find-pkg-share sphere_description)/launch/description_launch.py"/>
-  
+	<include file="$(find-pkg-share sphere_description)/launch/description_launch.py"/>
+	<include file="$(find-pkg-share norlab_imu_tools)/launch/pressure_moving_average_launch.xml"/>
+	<include file="$(find-pkg-share norlab_imu_tools)/launch/altitude_computation_launch.xml"/>
+
 	<node pkg="rslidar_pointcloud_stamped" exec="cloud_node_stamped" name="cloud_node_stamped" output="screen">
 		<remap from="rslidar_packets" to="/rslidar16_packets"/>
 		<remap from="rslidar_packets_difop" to="/rslidar16_packets_difop"/>
@@ -34,6 +36,7 @@
 
 	<node pkg="imu_odom" exec="imu_odom_node" name="imu_odom_node" output="screen">
 		<remap from="imu_topic" to="/$(var imu)_imu/data_oriented"/>
+		<remap from="altitude_topic" to="/$(var imu)_imu/altitude_computed"/>
 		<param name="odom_frame" value="odom"/>
 		<param name="robot_frame" value="base_link"/>
 		<param name="imu_frame" value="$(var imu_frame)"/>
