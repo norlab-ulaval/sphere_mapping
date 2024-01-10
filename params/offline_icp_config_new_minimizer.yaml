@@ -11,6 +11,7 @@ outlierFilters:
 errorMinimizer:
   PointToPlaneWithAltitudeErrorMinimizer:
          force4DOF: 1
+         forceAltitude: 1
 
 transformationCheckers:
   - DifferentialTransformationChecker:
