@@ -1,5 +1,5 @@
 <launch>
-	<arg name="imu" default="MTI30"/>
+	<arg name="imu" default="vectornav"/>
 
 	<let name="is_mti" value="$(eval '\'$(var imu)\' == \'MTI30\'')"/>
 	<let name="imu_frame" value="mti30" if="$(var is_mti)"/>
@@ -8,8 +8,8 @@
 	<set_parameter name="use_sim_time" value="true"/>
 
 	<include file="$(find-pkg-share sphere_description)/launch/description_launch.py"/>
-	<!--<include file="$(find-pkg-share norlab_imu_tools)/launch/pressure_moving_average_launch.xml"/>
-	<include file="$(find-pkg-share norlab_imu_tools)/launch/altitude_computation_launch.xml"/>-->
+	<!--<include file="$(find-pkg-share norlab_imu_tools)/launch/pressure_moving_average_launch.xml"/-->
+	<include file="$(find-pkg-share norlab_imu_tools)/launch/altitude_computation_launch.xml"/>
 
 	<node pkg="rslidar_pointcloud_stamped" exec="cloud_node_stamped" name="cloud_node_stamped" output="screen">
 		<remap from="rslidar_packets" to="/rslidar16_packets"/>
@@ -53,9 +53,9 @@
 		<param name="sensor_frame" value="rslidar16"/>
 		<param name="robot_frame" value="base_link"/>
 		<param name="odom_frame" value="odom"/>
-    <param name="icp_config" value="$(find-pkg-share sphere_mapping)/params/offline_icp_config_new_minimizer.yaml"/>
-    <param name="input_filters_config" value="$(find-pkg-share sphere_mapping)/params/offline_input_filters.yaml"/>
-    <param name="map_post_filters_config" value="$(find-pkg-share sphere_mapping)/params/offline_post_filters.yaml"/>
+    	<param name="icp_config" value="$(find-pkg-share sphere_mapping)/params/offline_icp_config_new_minimizer.yaml"/>
+    	<param name="input_filters_config" value="$(find-pkg-share sphere_mapping)/params/offline_input_filters.yaml"/>
+    	<param name="map_post_filters_config" value="$(find-pkg-share sphere_mapping)/params/offline_post_filters.yaml"/>
 		<param name="map_update_condition" value="delay"/>
 		<param name="map_update_delay" value="0.0"/>
 		<param name="sensor_max_range" value="100.0"/>
@@ -70,7 +70,7 @@
 		<param name="beta" value="0.9" />
 		<param name="is_3D" value="true" />
 		<param name="map_tf_publish_rate" value="100.0" />
-		<param name="is_online" value="true"/>
+		<param name="is_online" value="false"/>
 	</node>
 </launch>
 

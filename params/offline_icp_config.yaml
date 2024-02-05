@@ -1,6 +1,6 @@
 matcher:
   KDTreeMatcher:
-    knn: 6
+    knn: 15
     maxDist: 2.0
     epsilon: 1
 
@@ -20,8 +20,8 @@ transformationCheckers:
   - CounterTransformationChecker:
       maxIterationCount: 40
   - BoundTransformationChecker:
-      maxRotationNorm: 1000000.1
-      maxTranslationNorm: 15000.00
+      maxRotationNorm: 6.1
+      maxTranslationNorm: 5.00
 
 inspector:
   NullInspector

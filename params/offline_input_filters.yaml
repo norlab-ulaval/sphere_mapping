@@ -8,6 +8,6 @@
     removeInside: 1
 
 - RandomSamplingDataPointsFilter:
-    prob: 0.8
+    prob: 1.0
 
 -ObservationDirectionDataPointsFilter:
