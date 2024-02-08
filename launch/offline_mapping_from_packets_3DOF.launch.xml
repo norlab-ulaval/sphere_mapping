@@ -9,8 +9,13 @@
 
 	<include file="$(find-pkg-share sphere_description)/launch/description_launch.py"/>
 	<!--<include file="$(find-pkg-share norlab_imu_tools)/launch/pressure_moving_average_launch.xml"/-->
-	<include file="$(find-pkg-share norlab_imu_tools)/launch/altitude_computation_launch.xml"/>
-
+	<node pkg="norlab_imu_tools" exec="altitude_computation_node" name="altitude_computation" output="screen">
+		<remap from="ref_pressure_in" to="/dps310_1/pressure" />
+		<remap from="ref_temp_in" to="/dps310_1/temperature"/>
+		<remap from="sensor_pressure_in" to="/dps310/pressure"/>
+		<remap from="altitude_out" to="/sphere_dps310_reference_dps310_1_warthog/altitude" />
+		<param name="formula" value="barometric"/>
+	</node>
 	<node pkg="rslidar_pointcloud_stamped" exec="cloud_node_stamped" name="cloud_node_stamped" output="screen">
 		<remap from="rslidar_packets" to="/rslidar16_packets"/>
 		<remap from="rslidar_packets_difop" to="/rslidar16_packets_difop"/>
@@ -36,7 +41,7 @@
 
 	<node pkg="imu_odom" exec="imu_odom_node" name="imu_odom_node" output="screen">
 		<remap from="imu_topic" to="/$(var imu)_imu/data_oriented"/>
-		<remap from="altitude_topic" to="/vectornav_imu/altitude_computed"/>
+		<remap from="altitude_topic" to="/sphere_dps310_reference_dps310_1_warthog/altitude"/>
 		<param name="odom_frame" value="odom"/>
 		<param name="robot_frame" value="base_link"/>
 		<param name="imu_frame" value="$(var imu_frame)"/>
@@ -53,7 +58,7 @@
 		<param name="sensor_frame" value="rslidar16"/>
 		<param name="robot_frame" value="base_link"/>
 		<param name="odom_frame" value="odom"/>
-    	<param name="icp_config" value="$(find-pkg-share sphere_mapping)/params/offline_icp_config_new_minimizer.yaml"/>
+    	<param name="icp_config" value="$(find-pkg-share sphere_mapping)/params/offline_icp_config_3DOF.yaml"/>
     	<param name="input_filters_config" value="$(find-pkg-share sphere_mapping)/params/offline_input_filters.yaml"/>
     	<param name="map_post_filters_config" value="$(find-pkg-share sphere_mapping)/params/offline_post_filters.yaml"/>
 		<param name="map_update_condition" value="delay"/>
