@@ -38,6 +38,7 @@
 		<remap from="imu_topic" to="/$(var imu)_sphere_imu/data_oriented"/>
 		<param name="odom_frame" value="odom"/>
 		<param name="robot_frame" value="base_link"/>
+		<param name="altimeter_frame" value="dps310"/>
 		<param name="imu_frame" value="$(var imu_frame)"/>
 	</node>
 

@@ -44,6 +44,7 @@
 		<remap from="altitude_topic" to="/sphere_dps310_reference_dps310_1_warthog/altitude"/>
 		<param name="odom_frame" value="odom"/>
 		<param name="robot_frame" value="base_link"/>
+		<param name="altimeter_frame" value="dps310"/>
 		<param name="imu_frame" value="$(var imu_frame)"/>
 	</node>
 
