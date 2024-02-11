@@ -70,6 +70,7 @@
 		<param name="is_3D" value="true" />
 		<param name="map_tf_publish_rate" value="100.0" />
 		<param name="is_online" value="false"/>
+		<param name="max_idle_time" value="300.0"/>
 	</node>
 </launch>
 
